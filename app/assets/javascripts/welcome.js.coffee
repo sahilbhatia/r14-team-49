@@ -11,7 +11,7 @@ $ ->
       text: ''
 
     mapNavigation:
-      enabled: true
+      enabled: false
       buttonOptions:
         verticalAlign: "bottom"
 
