@@ -12,7 +12,7 @@ custom_fun = ->
 show_map = ->
   map_url = ""
   country = $("#country_select").val()
-  if country is 'india'
+  if country is 'in'
     map_url = "countries/in/in-all"
     data = [
       {
