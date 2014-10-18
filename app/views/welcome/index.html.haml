@@ -4,4 +4,24 @@
     .container
       .row
     .div.height-600{id: 'container'}
-
+%section{id: "team", class: "bg-light-gray"}
+  .container
+    .row
+      .col-lg-12.text-center
+        %h2.section-heading Our Amazing Team
+        %h3.section-subheading.text-muted
+    .row
+      - @members.each do |member|
+        .col-sm-3
+          .team-member
+            = image_tag member[:image], class: 'img-responsive img-circle'
+            %h4= member[:name]
+            %p.text-muted= member[:role]
+            %ul.list-inline.social-buttons
+              - member[:social_links].each do |social|
+                %li
+                  = link_to social[:link], class: "fa fa-#{social[:link]}", target: '_blank' do
+                    %i{class: "fa fa-#{social[:name]}"}
+    .row
+      .col-lg-8.col-lg-offset-2.text-center
+        %p.large.text-muted      

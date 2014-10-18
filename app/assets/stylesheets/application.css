@@ -60,3 +60,70 @@ button#gobutton:hover, input#gobutton:focus{
   left: 25%;
   position: absolute;
 }
+section{
+  padding: 150px 0;
+  color: black;
+}
+.bg-light-gray {
+  background-color: #f7f7f7;
+}
+section h2.section-heading {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 40px;
+}
+section h3.section-subheading {
+  margin-bottom: 75px;
+  text-transform: none;
+  font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 400;
+}
+.text-muted {
+  color: #777;
+}
+.team-member {
+  margin-bottom: 50px;
+  text-align: center;
+}
+.team-member img {
+  margin: 0 auto;
+  border: 7px solid #fff;
+  height: 260px;
+}
+.team-member h4 {
+  margin-top: 25px;
+  margin-bottom: 0;
+  text-transform: none;
+}
+.team-member p {
+  margin-top: 0;
+}
+ul.social-buttons {
+  margin-bottom: 0;
+}
+.list-inline {
+  padding-left: 0;
+  margin-left: -5px;
+  list-style: none;
+}
+.list-inline>li {
+  display: inline-block;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+ul.social-buttons li a {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  font-size: 20px;
+  line-height: 40px;
+  outline: 0;
+  color: #fff;
+  background-color: #222;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  transition: all .3s;
+}
