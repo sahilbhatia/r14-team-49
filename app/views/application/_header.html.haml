@@ -3,13 +3,13 @@
   .container
     <!-- Brand and toggle get grouped for better mobile display -->
     .navbar-header
-      = link_to '#', class: 'navbar-toggle btn', data: {toggle: 'collapse', target: "#bs-example-navbar-collapse-1"} do
-        %i.fa.fa-play-circle
-      = link_to "#page-top", class: 'navbar-brand page-scroll' do
-        %i.fa.fa-play-circle
-      %ul.navbar-brand.nav.navbar-nav
-        %li= select_tag 'country', options_for_select([['India', 'india'], ['U.S.A', 'usa']]), {class: 'selectpicker', id: 'country_select'}
-        %li= text_field_tag 'q', '',id: 'query', class: 'query', autocomplete: 'off'
+      %ul.nav.navbar-nav
+        %li.nav-ele
+          = select_tag 'country', options_for_select([['India', 'india'], ['U.S.A', 'usa']]), {class: 'selectpicker', id: 'country_select'}
+        %li.nav-ele
+          = text_field_tag 'q', '',id: 'query', class: 'query', autocomplete: 'off', placeholder: '#hashtags ex: #ruby'
+        %li.nav-ele
+          = button_tag "Go!", id: 'gobutton'
     <!-- Collect the nav links, forms, and other content for toggling -->
     .collapse.navbar-collapse.navbar-right.navbar-main-collapse
       %ul.nav.navbar-nav
