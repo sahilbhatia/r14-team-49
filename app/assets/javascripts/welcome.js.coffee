@@ -8,7 +8,7 @@ window.get_tweet_count = ->
       $.ajax({
         type: 'POST'
         url: '/fetch_tweets' 
-        data: {query: $('#query').val(), country: $('#country_select').val()}
+        data: {criteria: { query: $('#query').val(), country: $('#country_select').val() }, authenticity_token: $('#authenticity_token').val()}
         success: (data) ->
                 show_map(data)
         fail: ->
@@ -22,15 +22,14 @@ custom_fun = ->
     show_map()
   return
 
-show_map = (result)->
+show_map = (result) ->
   map_url = ""
   country = $("#country_select").val()
   if country is 'in'
     map_url = "countries/in/in-all"
-    data = result
   else
     map_url = "countries/us/us-all"
-    data = [
+    result = [
       {
         "hc-key": "us-ma"
         value: 0

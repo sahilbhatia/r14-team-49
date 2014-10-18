@@ -4,8 +4,9 @@ class WelcomeController < ApplicationController
   end
 
   def fetch_tweets
+    @members = TEAM_MEMBERS
     @result_set = TwitterApi.fetch_tweets_for(safe_params[:query], :country => safe_params[:country]).to_json
-    render :index
+    render :json => @result_set
   end
 
   def get_country_code
