@@ -56,3 +56,6 @@ gem 'rails_12factor', group: :production
 
 # to access twitter api
 gem 'twitter'
+
+# to return country code from given latitude & longitude
+gem 'geocoder'

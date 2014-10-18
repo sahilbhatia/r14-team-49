@@ -12,7 +12,7 @@ custom_fun = ->
 show_map = ->
   map_url = ""
   country = $("#country_select").val()
-  if country is 'india'
+  if country is 'in'
     map_url = "countries/in/in-all"
     data = [
       {
@@ -391,6 +391,25 @@ show_map = ->
 
   $(".highcharts-background").attr fill: "lightsteelblue"
 
-$(document).ready(custom_fun)
-$(document).on 'page:load', custom_fun
+getLocation = ->
+  navigator.geolocation.getCurrentPosition(getPosition) if navigator.geolocation
+  return
 
+getPosition = (position) ->
+  position = "" + position.coords.latitude + ", " + position.coords.longitude
+
+  $.get "/get_country_code",
+    coordinates: position
+  , (response) ->
+    $.each $("#country_select").parent().find("span.text"), (index, value) ->
+      if $("#country_select option").eq(index).val() is response.country_code
+        $(this).click()
+      return
+
+    return
+
+$ ->
+  custom_fun()
+  getLocation()
+
+$(document).on 'page:load', custom_fun
