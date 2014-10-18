@@ -1,0 +1,20 @@
+<!-- Navigation -->
+%nav.navbar.navbar-custom.navbar-fixed-top
+  .container
+    <!-- Brand and toggle get grouped for better mobile display -->
+    .navbar-header
+      = link_to '#', class: 'navbar-toggle btn', data: {toggle: 'collapse', target: "#bs-example-navbar-collapse-1"} do
+        %i.fa.fa-play-circle
+      = link_to "#page-top", class: 'navbar-brand page-scroll' do
+        %i.fa.fa-play-circle
+        %span.light Start
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    .collapse.navbar-collapse.navbar-right.navbar-main-collapse
+      %ul.nav.navbar-nav
+        %li.hidden
+          = link_to '', '#page-top'
+        %li.page-scroll
+          = link_to 'About', '#about'
+        %li.page-scroll
+          = link_to 'Contact', '#contact'
+
