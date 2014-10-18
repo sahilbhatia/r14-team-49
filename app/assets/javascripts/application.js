@@ -16,4 +16,5 @@
 //= require highmaps
 //= require exporting
 //= require in-all
+//= require us-all
 //= require_tree .
