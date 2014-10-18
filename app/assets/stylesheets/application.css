@@ -56,3 +56,7 @@ button#gobutton:hover, input#gobutton:focus{
   display: block;
   padding: 10px 15px;
 }
+.nav-custom{
+  left: 25%;
+  position: absolute;
+}
