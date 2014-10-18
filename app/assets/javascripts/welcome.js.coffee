@@ -266,6 +266,25 @@ show_map = (result)->
 
   $(".highcharts-background").attr fill: "lightsteelblue"
 
-$(document).ready(custom_fun)
-$(document).on 'page:load', custom_fun
+getLocation = ->
+  navigator.geolocation.getCurrentPosition(getPosition) if navigator.geolocation
+  return
 
+getPosition = (position) ->
+  position = "" + position.coords.latitude + ", " + position.coords.longitude
+
+  $.get "/get_country_code",
+    coordinates: position
+  , (response) ->
+    $.each $("#country_select").parent().find("span.text"), (index, value) ->
+      if $("#country_select option").eq(index).val() is response.country_code
+        $(this).click()
+      return
+
+    return
+
+$ ->
+  custom_fun()
+  getLocation()
+
+$(document).on 'page:load', custom_fun
