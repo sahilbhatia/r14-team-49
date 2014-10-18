@@ -8,8 +8,8 @@
       = link_to "#page-top", class: 'navbar-brand page-scroll' do
         %i.fa.fa-play-circle
       %ul.navbar-brand.nav.navbar-nav
-        %li
-          = text_field_tag 'q', '',id: 'query', class: 'query', autocomplete: 'off'
+        %li= select_tag 'country', options_for_select([['India', 'india'], ['U.S.A', 'usa']]), {class: 'selectpicker'}
+        %li= text_field_tag 'q', '',id: 'query', class: 'query', autocomplete: 'off'
     <!-- Collect the nav links, forms, and other content for toggling -->
     .collapse.navbar-collapse.navbar-right.navbar-main-collapse
       %ul.nav.navbar-nav
