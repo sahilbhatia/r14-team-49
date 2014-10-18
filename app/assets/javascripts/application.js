@@ -13,4 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require highmaps
+//= require exporting
+//= require in-all
 //= require_tree .
