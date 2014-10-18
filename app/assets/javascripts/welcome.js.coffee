@@ -2,6 +2,19 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+
+window.get_tweet_count = ->
+    $('body').on 'click', '#gobutton', ->
+      $.ajax({
+        type: 'POST'
+        url: '/fetch_tweets' 
+        data: {query: $('#query').val(), country: $('#country_select')}
+        success: (data) ->
+                show_map(data)
+        fail: ->
+              console.log 'Error'    
+     })
+
 custom_fun = ->
   # Initiate the chart
   show_map() 
@@ -9,150 +22,12 @@ custom_fun = ->
     show_map()
   return
 
-show_map = ->
+show_map = (result)->
   map_url = ""
   country = $("#country_select").val()
-  if country is 'india'
+  if country is 'in'
     map_url = "countries/in/in-all"
-    data = [
-      {
-        "hc-key": "in-py"
-        value: 0
-      }
-      {
-        "hc-key": "in-ld"
-        value: 1
-      }
-      {
-        "hc-key": "in-wb"
-        value: 2
-      }
-      {
-        "hc-key": "in-up"
-        value: 3
-      }
-      {
-        "hc-key": "in-ut"
-        value: 4
-      }
-      {
-        "hc-key": "in-jh"
-        value: 5
-      }
-      {
-        "hc-key": "in-or"
-        value: 6
-      }
-      {
-        "hc-key": "in-br"
-        value: 7
-      } 
-      {
-        "hc-key": "in-sk"
-        value: 8
-      }
-      {
-        "hc-key": "in-ct"
-        value: 9
-      } 
-      {
-        "hc-key": "in-tn"
-        value: 10
-      }
-      {
-        "hc-key": "in-mp"
-        value: 11
-      }
-      {
-        "hc-key": "in-2984"
-        value: 12
-      }
-      {
-        "hc-key": "in-ga"
-        value: 13
-      }
-      {
-        "hc-key": "in-nl"
-        value: 14
-      }
-      {
-        "hc-key": "in-mn"
-        value: 15
-      }
-      {
-        "hc-key": "in-ar"
-        value: 16
-      }
-      {
-        "hc-key": "in-mz"
-        value: 17
-      }
-      { 
-        "hc-key": "in-tr"
-        value: 18
-      }
-      {
-        "hc-key": "in-3464"
-        value: 19
-      }
-      {
-        "hc-key": "in-dl"
-        value: 20
-      } 
-      {
-        "hc-key": "in-hr"
-        value: 21
-      }
-      { 
-        "hc-key": "in-ch"
-        value: 22
-      }
-      {
-        "hc-key": "in-hp"
-        value: 23
-      }
-      {
-        "hc-key": "in-jk"
-        value: 24
-      }
-      {
-        "hc-key": "in-kl"
-        value: 25
-      }
-      {
-        "hc-key": "in-ka"
-        value: 26
-      }
-      {
-        "hc-key": "in-ap"
-        value: 27
-      }
-      {
-        "hc-key": "in-dn"
-        value: 28
-      }
-      {
-        "hc-key": "in-mh"
-        value: 29
-      }
-      {
-        "hc-key": "in-as"
-        value: 30
-      }
-      {
-        "hc-key": "in-ml"
-        value: 31
-      }
-      {
-        "hc-key": "in-pb"
-        value: 32
-      }
-      {
-        "hc-key": "in-rj"
-        value: 33
-      }
-    ]
-
+    data = result
   else
     map_url = "countries/us/us-all"
     data = [
@@ -376,7 +251,7 @@ show_map = ->
       min: 0
 
     series: [
-      data: data
+      data: result
       mapData: Highcharts.maps[map_url]
       joinBy: "hc-key"
       name: "Random data"
@@ -391,6 +266,25 @@ show_map = ->
 
   $(".highcharts-background").attr fill: "lightsteelblue"
 
-$(document).ready(custom_fun)
-$(document).on 'page:load', custom_fun
+getLocation = ->
+  navigator.geolocation.getCurrentPosition(getPosition) if navigator.geolocation
+  return
 
+getPosition = (position) ->
+  position = "" + position.coords.latitude + ", " + position.coords.longitude
+
+  $.get "/get_country_code",
+    coordinates: position
+  , (response) ->
+    $.each $("#country_select").parent().find("span.text"), (index, value) ->
+      if $("#country_select option").eq(index).val() is response.country_code
+        $(this).click()
+      return
+
+    return
+
+$ ->
+  custom_fun()
+  getLocation()
+
+$(document).on 'page:load', custom_fun

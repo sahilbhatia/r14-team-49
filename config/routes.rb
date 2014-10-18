@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
+  post "fetch_tweets" => "welcome#fetch_tweets", as: :fetch_tweets
   root 'welcome#index'
+  match '/get_country_code', controller: 'welcome', action: 'get_country_code', via: :get
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

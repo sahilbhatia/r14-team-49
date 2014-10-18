@@ -51,6 +51,7 @@ GEM
     execjs (2.2.2)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
+    geocoder (1.2.5)
     haml (4.0.5)
       tilt
     haml-rails (0.5.3)
@@ -167,6 +168,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   coffee-rails (~> 4.0.0)
+  geocoder
   haml-rails
   jbuilder (~> 2.0)
   jquery-rails
