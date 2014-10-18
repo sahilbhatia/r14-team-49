@@ -4,11 +4,11 @@
 
 
 window.get_tweet_count = ->
-    $('body').on 'click', '#gobutton', ->
+    $('#gobutton').on 'click', ->
       $.ajax({
         type: 'POST'
         url: '/fetch_tweets' 
-        data: {query: $('#query').val(), country: $('#country_select')}
+        data: {query: $('#query').val(), country: $('#country_select').val()}
         success: (data) ->
                 show_map(data)
         fail: ->
