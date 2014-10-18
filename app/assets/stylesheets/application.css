@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+.query{
+  padding: 0 15px;
+  width: 100%;
+  height: 35px;
+  border: 1px solid #CBD3DD;
+  font-size: 1.125em;
+  color: lightblue;
+}
