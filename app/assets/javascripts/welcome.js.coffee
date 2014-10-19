@@ -5,6 +5,8 @@
 
 fetchTweetCount = ->
     $('#gobutton').on 'click', ->
+      # clear previous tweet count
+      $('#container').highcharts().series[0].setData([])
       $.each window.coordinates, (state, geocode) ->
         # get tweet count for query
         $.ajax {
