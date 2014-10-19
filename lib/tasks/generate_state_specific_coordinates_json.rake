@@ -5,24 +5,25 @@ namespace :generate_json do
   task :state_coordinates_mapping, [:country_code] => :environment do |task, options|
     base_uri = "https://maps.googleapis.com/maps/api/geocode/json"
     country = Country.find_country_by_alpha3(options.country_code)
-    country_name = country.data['alpha2'].downcase
+    country_2_code = country.data['alpha2'].downcase
 
     if country.present?
       hsh = {}
 
       country.states.each do |state|
-        query_string = "?components=country:#{country_name}|administrative_area:#{state[0]}&key=AIzaSyA6r8I9Ng8PHHGOBiOqiKiH8Xo2UKWQYlM"
+        state_2_code = state[0].downcase
+        query_string = "?components=country:#{country_2_code}|administrative_area:#{state_2_code}&key=AIzaSyA6r8I9Ng8PHHGOBiOqiKiH8Xo2UKWQYlM"
 
         result = HTTParty.get(URI.parse(URI.encode("#{base_uri}#{query_string}")))
 
         if result.parsed_response['status'] == 'OK'
           coordinates_hsh = result.parsed_response['results'][0]['geometry']['location']
 
-          hsh.merge!({ "#{country_name}-#{state[0].downcase}" => "#{coordinates_hsh['lat']},#{coordinates_hsh['lng']}" })
+          hsh.merge!({ "#{country_2_code}-#{state_2_code}" => "#{coordinates_hsh['lat']},#{coordinates_hsh['lng']}" })
         end
       end
 
-      output_file_url = "#{Rails.root}/public/countries/#{country_name}.json"
+      output_file_url = "#{Rails.root}/public/countries/#{country_2_code}.json"
 
       File.open(output_file_url, "w+") do |file|
         file.write(hsh.to_json)
