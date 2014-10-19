@@ -124,7 +124,7 @@ renderMap = (result) ->
   $(".highcharts-background").attr fill: "lightsteelblue"
 
 initiateSearch = ->
-  $('#fetch_button').progressSet(100)
+  $('#fetch_button').progressInitialize()
   renderMap()
 
 $ ->
