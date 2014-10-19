@@ -25,7 +25,7 @@ namespace :generate_json do
                                                              { units: :km })
           radius = distance / 2
 
-          hsh.merge!({ "#{country_2_code}-#{state_2_code}" => "#{coordinates_hsh['lat']}, #{coordinates_hsh['lng']}, #{radius}km" })
+          hsh.merge!({ "#{country_2_code}-#{state_2_code}" => "#{coordinates_hsh['lat']},#{coordinates_hsh['lng']},#{radius}km" })
         end
       end
 
