@@ -7,6 +7,10 @@ fetchTweetCount = ->
     $('#fetch_button').on 'click', ->
       progress = 0
       return unless $('#query').val().trim()
+
+      $(this).attr('disabled', 'disabled')
+      $('#query').attr('disabled', 'disabled')
+
       $('#container').highcharts().series[0].setData([])
       $.each window.coordinates, (state, geocode) ->
         # get tweet count for given query
@@ -23,6 +27,11 @@ fetchTweetCount = ->
             )
            
             $('#fetch_button').progressSet(setCurrentProgress(progress += 1))
+
+            if Object.keys(window.coordinates).length is progress
+              $('#fetch_button').attr('disabled', false)
+              $('#query').attr('disabled', false)
+
             if point 
               point.update(parseInt(count))
             
