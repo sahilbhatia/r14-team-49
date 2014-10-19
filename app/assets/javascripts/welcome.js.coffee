@@ -7,6 +7,9 @@ fetchTweetCount = ->
     $('#fetch_button').on 'click', (e) ->
       progress = 0
       window.toSearch = true
+      $(this).attr('disabled', 'disabled')
+      $('#query').attr('disabled', 'disabled')
+
       $('#container').highcharts().series[0].setData([])
       $('#fetch_button').progressSet(1)
       $('#cancel').removeClass('hide')
@@ -20,6 +23,10 @@ fetchTweetCount = ->
               data: { criteria: { query: $('#query').val(), geocode: geocode }, authenticity_token: $('#authenticity_token').val()}
               success: (count) ->
                 $('#fetch_button').progressSet(setCurrentProgress(progress += 1))
+                if Object.keys(window.coordinates).length is progress
+                  $('#fetch_button').attr('disabled', false)
+                  $('#query').attr('disabled', false)
+                
                 # render tweet count on map
                 point = ''
                 $.each($('#container').highcharts().series[0].points, (i,e) -> 

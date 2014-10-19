@@ -1,1 +1,1 @@
-COUNTRIES = [['Australia','au'],['Brazil','br'],['Canada','ca'],['China','cn'],['France','fr'],['India','in'],['Japan','jp'],['New Zealand','nz'],['Singapore','sg'],['U.S.A','us']]
+COUNTRIES = [['Brazil','br'],['Canada','ca'],['China','cn'],['Germany','de'],['India','in'],['Japan','jp'],['New Zealand','nz'],['Spain','es'],['U.S.A','us']]
