@@ -9,14 +9,12 @@
           = select_tag "criteria[country]", options_for_select([['India', 'in'], ['U.S.A', 'us']], @country_code), {class: 'selectpicker', id: 'country_select'}
         %li.nav-ele
           = text_field_tag "criteria[query]", '',id: 'query', class: 'query', autocomplete: 'off', placeholder: '#hashtags ex: #ruby'
-        %li.nav-ele
+        %li.nav-ele{id: 'page-top'}
           = button_tag "Go!", id: 'gobutton'
     <!-- Collect the nav links, forms, and other content for toggling -->
     .collapse.navbar-collapse.navbar-right.navbar-main-collapse
       %ul.nav.navbar-nav
         %li.hidden
           = link_to '', '#page-top'
-        %li.page-scroll
-          = link_to 'About', '#about'
-        %li.page-scroll
-          = link_to 'Contact', '#contact'
+        %li
+          = link_to 'About', '#about', class: 'page-scroll'
