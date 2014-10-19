@@ -58,6 +58,7 @@ gem 'rails_12factor', group: :production
 gem 'twitter'
 
 # to return country code from given latitude & longitude
+# to calculate distance between two coordinates
 gem 'geocoder'
 
 # to get list of countries and their respective states
@@ -65,6 +66,3 @@ gem 'countries'
 
 # to make api calls or call external urls
 gem 'httparty'
-
-# to calculate distance between two coordinates
-gem 'geocoder'
