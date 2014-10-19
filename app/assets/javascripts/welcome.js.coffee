@@ -14,6 +14,8 @@ fetchTweetCount = ->
       
       $.each window.coordinates, (state, geocode) ->
         # get tweet count for given query
+        $('#fetch_button').progressSet(setCurrentProgress(progress += 1))
+        
         $.ajax {
           type: 'POST'
           url: '/fetch_tweets' 
@@ -26,7 +28,6 @@ fetchTweetCount = ->
                 point = e
             )
            
-            $('#fetch_button').progressSet(setCurrentProgress(progress += 1))
             if point 
               point.update(parseInt(count))
             
