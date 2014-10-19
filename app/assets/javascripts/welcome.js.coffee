@@ -5,14 +5,19 @@
 
 fetchTweetCount = ->
     $('#gobutton').on 'click', ->
-      $.each window.coordinates, (state, geo_code) ->
+      $.each window.coordinates, (state, geocode) ->
         # get tweet count for query
         $.ajax {
           type: 'POST'
           url: '/fetch_tweets' 
-          data: { criteria: { query: $('#query').val(), geocode: geo_code }, authenticity_token: $('#authenticity_token').val()}
+          data: { criteria: { query: $('#query').val(), geocode: geocode }, authenticity_token: $('#authenticity_token').val()}
           success: (count) ->
-            console.log count
+            point = ''
+            $.each($('#container').highcharts().series[0].points, (i,e) -> 
+              if(e['hc-key'] == state) 
+                point = e
+            )
+            point.update(parseInt(count))
           fail: ->
             console.log 'Error'    
         }
@@ -51,7 +56,7 @@ renderMap = (result) ->
       data: result
       mapData: Highcharts.maps[map_url]
       joinBy: "hc-key"
-      name: "Random data"
+      name: "Tweets Count for"
       states:
         hover:
           color: "#BADA55"
