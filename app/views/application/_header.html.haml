@@ -6,7 +6,7 @@
       %ul.nav.navbar-nav
         %li.nav-ele
           = hidden_field_tag 'authenticity_token', form_authenticity_token, :id => 'authenticity_token'
-          = select_tag "criteria[country]", options_for_select([['India', 'in'], ['U.S.A', 'us']]), {class: 'selectpicker', id: 'country_select'}
+          = select_tag "criteria[country]", options_for_select([['India', 'in'], ['U.S.A', 'us']], @country_code), {class: 'selectpicker', id: 'country_select'}
         %li.nav-ele
           = text_field_tag "criteria[query]", '',id: 'query', class: 'query', autocomplete: 'off', placeholder: '#hashtags ex: #ruby'
         %li.nav-ele
