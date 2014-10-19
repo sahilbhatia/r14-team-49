@@ -65,3 +65,6 @@ gem 'countries'
 
 # to make api calls or call external urls
 gem 'httparty'
+
+# to calculate distance between two coordinates
+gem 'geocoder'
