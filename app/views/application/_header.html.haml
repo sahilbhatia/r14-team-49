@@ -16,10 +16,8 @@
       %ul.nav.navbar-nav
         %li.hidden
           = link_to '', '#page-top'
-        %li.page-scroll
-          = link_to 'About', '#about'
-        %li.page-scroll
-          = link_to 'Contact', '#contact'
+        %li
+          = link_to 'About', '#about', class: 'page-scroll'
 
 :javascript
   $('#country_select').select2({width: '250px'})

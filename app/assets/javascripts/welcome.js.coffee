@@ -25,18 +25,19 @@ fetchTweetCount = ->
               if(e['hc-key'] == state) 
                 point = e
             )
-            
-            point.update(parseInt(count))
+           
             $('#fetch_button').progressSet(setCurrentProgress(progress += 1))
+            if point 
+              point.update(parseInt(count))
             
-            $.amaran({
-              content:{
-                bgcolor: '#27ae60',
-                color: '#fff',
-                message: point.name + ' : ' + count
-              },
-              theme:'colorful'
-            });
+              $.amaran({
+                content:{
+                  bgcolor: '#27ae60',
+                  color: '#fff',
+                  message: point.name + ' : ' + count
+                },
+                theme:'colorful'
+              });
           fail: ->
             console.log 'Error'    
         }
