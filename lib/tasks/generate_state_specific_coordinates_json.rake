@@ -18,8 +18,14 @@ namespace :generate_json do
 
         if result.parsed_response['status'] == 'OK'
           coordinates_hsh = result.parsed_response['results'][0]['geometry']['location']
+          northeast_bounds = result.parsed_response['results'][0]['geometry']['bounds']['northeast']
+          southwest_bounds = result.parsed_response['results'][0]['geometry']['bounds']['southwest']
+          distance = Geocoder::Calculations.distance_between([northeast_bounds['lat'], northeast_bounds['lng']],
+                                                             [southwest_bounds['lat'], southwest_bounds['lng']],
+                                                             { units: :km })
+          radius = distance / 2
 
-          hsh.merge!({ "#{country_2_code}-#{state_2_code}" => "#{coordinates_hsh['lat']},#{coordinates_hsh['lng']}" })
+          hsh.merge!({ "#{country_2_code}-#{state_2_code}" => "#{coordinates_hsh['lat']}, #{coordinates_hsh['lng']}, #{radius}km" })
         end
       end
 
