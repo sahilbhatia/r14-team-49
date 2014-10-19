@@ -59,3 +59,9 @@ gem 'twitter'
 
 # to return country code from given latitude & longitude
 gem 'geocoder'
+
+# to get list of countries and their respective states
+gem 'countries'
+
+# to make api calls or call external urls
+gem 'httparty'
