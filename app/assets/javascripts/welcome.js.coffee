@@ -20,8 +20,18 @@ fetchTweetCount = ->
               if(e['hc-key'] == state) 
                 point = e
             )
+            
             point.update(parseInt(count))
             $('#fetch_button').progressSet(setCurrentProgress(progress += 1))
+            
+            $.amaran({
+              content:{
+                bgcolor: '#27ae60',
+                color: '#fff',
+                message: point.name + ' : ' + count
+              },
+              theme:'colorful'
+            });
           fail: ->
             console.log 'Error'    
         }
@@ -72,6 +82,10 @@ renderMap = (result) ->
         enabled: true
         format: "{point.name}"
     ]
+    
+    plotOptions: 
+      mapbubble:
+        animation: true
 
   $(".highcharts-background").attr fill: "lightsteelblue"
 
