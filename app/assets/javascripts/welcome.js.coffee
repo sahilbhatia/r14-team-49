@@ -13,7 +13,13 @@ getTweetCount = ->
           url: '/fetch_tweets' 
           data: { criteria: { query: $('#query').val(), geocode: geo_code }, authenticity_token: $('#authenticity_token').val()}
           success: (count) ->
-            console.log count
+            console.log count, state
+            point = ''
+            $.each($('#container').highcharts().series[0].points, (i,e) -> 
+              if(e['hc-key'] == 'in-ap') 
+                point = e
+            )
+            point.update(parseInt(count))
           fail: ->
             console.log 'Error'    
         }
@@ -274,7 +280,6 @@ show_map = (result) ->
 
 $ ->
   custom_fun()
-  getLocation()
   getTweetCount()
   fetchCoordinate()
 
