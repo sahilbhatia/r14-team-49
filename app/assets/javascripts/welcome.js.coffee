@@ -7,6 +7,7 @@ fetchTweetCount = ->
     $('#fetch_button').on 'click', ->
       progress = 0
       return unless $('#query').val().trim()
+      $('#container').highcharts().series[0].setData([])
       $.each window.coordinates, (state, geocode) ->
         # get tweet count for given query
         $.ajax {
