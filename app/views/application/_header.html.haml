@@ -10,7 +10,10 @@
         %li.nav-ele
           = text_field_tag "criteria[query]", '', id: 'query', class: 'form-control', autocomplete: 'off', placeholder: '#hashtags ex: #ruby'
         %li.nav-ele
-          = button_tag "Fetch !!!", class: 'btn btn-primary progress-button', id: 'fetch_button', data: { loading: 'Fetching ...', finished: 'Fetch !!!', content: 'Enter a query to Search...', placement: 'bottom', toggle: 'popover', container: 'body'}
+
+          = link_to "Go !!!", "#top", class: 'btn btn-primary progress-button', id: 'fetch_button', data: { loading: 'Fetching ...', finished: 'Fetch !!!' }
+        %li.nav-ele
+          =# link_to "Cancel", "#", class: 'btn btn-danger hide', id: 'cancel'
     <!-- Collect the nav links, forms, and other content for toggling -->
     .collapse.navbar-collapse.navbar-right.navbar-main-collapse
       %ul.nav.navbar-nav
@@ -19,5 +22,3 @@
         %li
           = link_to 'About', '#about', class: 'page-scroll'
 
-:javascript
-  $('#country_select').select2({width: '250px'})

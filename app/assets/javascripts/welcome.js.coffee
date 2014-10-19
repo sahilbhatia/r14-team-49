@@ -4,44 +4,54 @@
 
 
 fetchTweetCount = ->
-    $('#fetch_button').on 'click', ->
+    $('#fetch_button').on 'click', (e) ->
       progress = 0
-     
-      # return if query is nil 
-      unless $('#query').val().trim()
-        $('#fetch_button').popover('toggle')
-        return      
+      window.toSearch = true
+      $('#container').highcharts().series[0].setData([])
+      $('#fetch_button').progressSet(1)
+      $('#cancel').removeClass('hide')
       
       $.each window.coordinates, (state, geocode) ->
         # get tweet count for given query
-        $('#fetch_button').progressSet(setCurrentProgress(progress += 1))
-        
-        $.ajax {
-          type: 'POST'
-          url: '/fetch_tweets' 
-          data: { criteria: { query: $('#query').val(), geocode: geocode }, authenticity_token: $('#authenticity_token').val()}
-          success: (count) ->
-            # render state on map
-            point = ''
-            $.each($('#container').highcharts().series[0].points, (i,e) -> 
-              if(e['hc-key'] == state) 
-                point = e
-            )
-           
-            if point 
-              point.update(parseInt(count))
-            
-              $.amaran({
-                content:{
-                  bgcolor: '#27ae60',
-                  color: '#fff',
-                  message: point.name + ' : ' + count
-                },
-                theme:'colorful'
-              });
-          fail: ->
-            console.log 'Error'    
-        }
+        if window.toSearch is true
+            $.ajax {
+              type: 'POST'
+              url: '/fetch_tweets' 
+              data: { criteria: { query: $('#query').val(), geocode: geocode }, authenticity_token: $('#authenticity_token').val()}
+              success: (count) ->
+                $('#fetch_button').progressSet(setCurrentProgress(progress += 1))
+                # render tweet count on map
+                point = ''
+                $.each($('#container').highcharts().series[0].points, (i,e) -> 
+                  if(e['hc-key'] == state) 
+                    point = e
+                )
+               
+                if point 
+                  point.update(parseInt(count))
+                
+                  $.amaran({
+                    content:{
+                      bgcolor: '#27ae60',
+                      color: '#fff',
+                      message: point.name + ' : ' + count
+                    },
+                    theme:'colorful'
+                  });
+              error: ->
+                cancelSerach()
+                jqXHR.abort()
+            }
+
+onCancel = ->
+  $('#cancel').on 'click', ->
+    cancelSerach()
+
+cancelSerach = ->
+  window.toSearch = false
+  $('#cancel').hide()
+  $('#query').attr('disabled', false)
+  initiateSearch()
 
 window.setCurrentProgress = (progress) ->
   (progress / Object.keys(window.coordinates).length) * 100
@@ -55,9 +65,19 @@ fetchCoordinates = ->
   $.getJSON 'countries/' + $('#country_select').val() + '.json', (coordinates) ->
     window.coordinates = coordinates
 
+onQueryChange = ->
+  $('#fetch_button').attr('disabled', 'disabled')
+  $('#query').on 'keyup', ->
+    unless $(this).val().trim()
+      $('#fetch_button').attr('disabled', 'disabled')
+    else
+      $('#fetch_button').attr('disabled', false)
+
 linkEvents = ->
   fetchTweetCount()
   chooseCountry()
+  onQueryChange()
+  onCancel()
 
 renderMap = (result) ->
   country = $("#country_select").val()
@@ -96,8 +116,11 @@ renderMap = (result) ->
 
   $(".highcharts-background").attr fill: "lightsteelblue"
 
-$ ->
-  $('#fetch_button').progressInitialize()
+initiateSearch = ->
+  $('#fetch_button').progressSet(100)
   renderMap()
+
+$ ->
+  initiateSearch()
   fetchCoordinates()
   linkEvents()
