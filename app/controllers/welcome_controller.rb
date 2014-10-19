@@ -1,6 +1,7 @@
 class WelcomeController < ApplicationController
   def index
     # list all team members
+    # TEAM_MEMBERS constant is defined in config/initializers/team_member.rb
     @members = TEAM_MEMBERS
 
     # 'Geocoder' gem provides 'location' method on 'request' object
@@ -9,10 +10,8 @@ class WelcomeController < ApplicationController
   end
 
   def fetch_tweets
-    # TEAM_MEMBERS constant is defined in config/initializers/team_member.rb
-    @members = TEAM_MEMBERS
-
     # fetch tweets using twitter API
+    # 'TwitterApi' class is defined in 'lib/twitter_api.rb'
     @result_set = TwitterApi.fetch_tweets_for(safe_params[:query], country: safe_params[:country]).to_json
 
     render :json => @result_set
