@@ -4,23 +4,30 @@
 
 
 fetchTweetCount = ->
-    $('#gobutton').on 'click', ->
+    $('#fetch_button').on 'click', ->
+      progress = 0
+      return unless $('#query').val().trim()
       $.each window.coordinates, (state, geocode) ->
-        # get tweet count for query
+        # get tweet count for given query
         $.ajax {
           type: 'POST'
           url: '/fetch_tweets' 
           data: { criteria: { query: $('#query').val(), geocode: geocode }, authenticity_token: $('#authenticity_token').val()}
           success: (count) ->
+            # render state on map
             point = ''
             $.each($('#container').highcharts().series[0].points, (i,e) -> 
               if(e['hc-key'] == state) 
                 point = e
             )
             point.update(parseInt(count))
+            $('#fetch_button').progressSet(setCurrentProgress(progress += 1))
           fail: ->
             console.log 'Error'    
         }
+
+window.setCurrentProgress = (progress) ->
+  (progress / Object.keys(window.coordinates).length) * 100
 
 chooseCountry = ->
   $('#country_select').on 'change', ->
@@ -69,6 +76,7 @@ renderMap = (result) ->
   $(".highcharts-background").attr fill: "lightsteelblue"
 
 $ ->
+  $('#fetch_button').progressInitialize()
   renderMap()
   fetchCoordinates()
   linkEvents()

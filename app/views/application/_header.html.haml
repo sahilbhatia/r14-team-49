@@ -10,7 +10,7 @@
         %li.nav-ele
           = text_field_tag "criteria[query]", '',id: 'query', class: 'query', autocomplete: 'off', placeholder: '#hashtags ex: #ruby'
         %li.nav-ele
-          = button_tag "Go!", id: 'gobutton'
+          = button_tag "Fetch !!!", class: 'btn btn-primary progress-button', id: 'fetch_button', data: { loading: 'Fetching ...', finished: 'Fetch !!!' }
     <!-- Collect the nav links, forms, and other content for toggling -->
     .collapse.navbar-collapse.navbar-right.navbar-main-collapse
       %ul.nav.navbar-nav
