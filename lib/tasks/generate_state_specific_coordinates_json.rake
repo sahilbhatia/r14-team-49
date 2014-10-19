@@ -19,7 +19,7 @@ namespace :generate_json do
         if result.parsed_response['status'] == 'OK'
           coordinates_hsh = result.parsed_response['results'][0]['geometry']['location']
 
-          hsh.merge!({ "#{state_2_code}" => "#{coordinates_hsh['lat']},#{coordinates_hsh['lng']}" })
+          hsh.merge!({ "#{country_2_code}-#{state_2_code}" => "#{coordinates_hsh['lat']},#{coordinates_hsh['lng']}" })
         end
       end
 
