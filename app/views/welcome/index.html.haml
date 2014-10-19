@@ -11,7 +11,7 @@
         %h2.section-heading Our Amazing Team
         %h3.section-subheading.text-muted
     .row
-      - @members.each do |member|
+      - TEAM_MEMBERS.each do |member|
         .col-sm-3
           .team-member
             = image_tag member[:image], class: 'img-responsive img-circle'
@@ -25,5 +25,3 @@
     .row
       .col-lg-8.col-lg-offset-2.text-center
         %p.large.text-muted     
-:javascript
-  window.get_tweet_count()

@@ -1,12 +1,7 @@
 class WelcomeController < ApplicationController
-  def index
-    @members = TEAM_MEMBERS
-  end
-
   def fetch_tweets
-    @members = TEAM_MEMBERS
-    @result_set = TwitterApi.fetch_tweets_for(safe_params[:query], :country => safe_params[:country]).to_json
-    render :json => @result_set
+    @result = TwitterClient.search(safe_params[:query], :geocode => safe_params[:geocode])
+    render :json => @result.count
   end
 
   def get_country_code
@@ -21,7 +16,7 @@ class WelcomeController < ApplicationController
   private
 
   def safe_params
-    params.fetch(:criteria, {}).permit(:query, :country)
+    params.fetch(:criteria, {}).permit(:query, :geocode)
   end
 
 end

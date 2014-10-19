@@ -3,17 +3,24 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 
-window.get_tweet_count = ->
+getTweetCount = ->
     $('#gobutton').on 'click', ->
-      $.ajax({
-        type: 'POST'
-        url: '/fetch_tweets' 
-        data: {criteria: { query: $('#query').val(), country: $('#country_select').val() }, authenticity_token: $('#authenticity_token').val()}
-        success: (data) ->
-                show_map(data)
-        fail: ->
-              console.log 'Error'    
-     })
+      $.each window.coordinates, (state, geo_code) ->
+        console.log state, geo_code
+        # get tweet count for query
+        $.ajax {
+          type: 'POST'
+          url: '/fetch_tweets' 
+          data: { criteria: { query: $('#query').val(), geocode: geo_code }, authenticity_token: $('#authenticity_token').val()}
+          success: (count) ->
+            console.log count
+          fail: ->
+            console.log 'Error'    
+        }
+
+fetchCoordinate = ->
+  $.getJSON 'countries/' + $('#country_select').val() + '.json', (coordinates) ->
+    window.coordinates = coordinates
 
 custom_fun = ->
   # Initiate the chart
@@ -285,5 +292,7 @@ getPosition = (position) ->
 $ ->
   custom_fun()
   getLocation()
+  getTweetCount()
+  fetchCoordinate()
 
 $(document).on 'page:load', custom_fun
